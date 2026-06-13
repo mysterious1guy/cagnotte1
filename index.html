@@ -247,11 +247,14 @@
     const WAVE_MERCHANT_URL = "https://pay.wave.com/m/M_sn_07_DCSrxbkAB/c/sn/"; 
     const ADMIN_CODE = "1234";
 
-    function loadState() {
-      try {
-        const stored = localStorage.getItem(LOCAL_KEY);
-        return stored ? JSON.parse(stored) : { total: 0, list: [] };
-      } catch(e) { return { total: 0, list: [] }; }
+function loadState() {
+      return {
+        total: 7000, // Écris ici la somme totale reçue (Ex: 5000 + 2000)
+        list: [
+          // Ajoute les donateurs ici un par un
+          { name: "Awa DIAKHAME", amount: 20 }
+        ]
+      };
     }
 
     function saveState(state) {
