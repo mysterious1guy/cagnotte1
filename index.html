@@ -171,9 +171,6 @@
       font-size: 0.85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 999;
     }
     .toast.show { opacity: 1; }
-
-    /* Zone admin secrète */
-    .admin-trigger { display: block; width: 40px; height: 20px; margin: 1.5rem auto 0; background: transparent; border: none; cursor: pointer; color: #e2e8f0; font-size: 10px; }
   </style>
 </head>
 <body>
@@ -234,32 +231,26 @@
       Numéro associé : <strong>+221 77 667 95 25</strong>
     </div>
 
-    <!-- Bouton secret de validation pour TOI -->
-    <button class="admin-trigger" onclick="adminAddContribution()">• admin</button>
-
   </div>
 
   <div class="toast" id="toast-notif"></div>
 
   <script>
     const TARGET = 25000;
-    const LOCAL_KEY = 'cagnotte_solidaire_v7_anon';
     const WAVE_MERCHANT_URL = "https://pay.wave.com/m/M_sn_07_DCSrxbkAB/c/sn/"; 
-    const ADMIN_CODE = "1234";
 
-function loadState() {
-      return {
-        total: 70, // Écris ici la somme totale reçue (Ex: 5000 + 2000)
-        list: [
-          // Ajoute les donateurs ici un par un
-          { name: "Awa DIAKHAME", amount: 20 },
-          { name: "AwaMouhamadou GUEYE", amount: 50 }
-        ]
-      };
-    }
+    // C'EST UNIQUEMENT ICI QUE TU TRAVAILLES QUAND TU REÇOIS UN DON :
+    function loadState() {
+      const list = [
+        { name: "Awa DIAKHAME", amount: 20 },
+        { name: "AwaMouhamadou GUEYE", amount: 50 }
+        // Ajoute les prochains en dessous en respectant le format !
+      ];
 
-    function saveState(state) {
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(state));
+      // Calcul automatique de la somme totale
+      const total = list.reduce((somme, donateur) => somme + donateur.amount, 0);
+
+      return { total, list };
     }
 
     function updateUI() {
@@ -295,24 +286,6 @@ function loadState() {
     function redirectToWave() {
       triggerToast('ℹ️ Redirection vers Wave...');
       window.location.href = WAVE_MERCHANT_URL;
-    }
-
-    function adminAddContribution() {
-      const code = prompt("Entrez le code secret Administrateur :");
-      if (code !== ADMIN_CODE) { alert("Code incorrect !"); return; }
-
-      const donorName = prompt("Prénom de la personne qui a payé :");
-      if (!donorName) return;
-      const donorAmount = parseInt(prompt("Montant exact reçu (FCFA) :"), 10);
-      if (!donorAmount || donorAmount <= 0) { alert("Montant invalide"); return; }
-
-      const state = loadState();
-      state.list.push({ name: donorName, amount: donorAmount, ts: Date.now() });
-      state.total += donorAmount;
-      saveState(state);
-      updateUI();
-      
-      triggerToast('✅ Dépôt validé avec succès !');
     }
 
     function copyLink() {
