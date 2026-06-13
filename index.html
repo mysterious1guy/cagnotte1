@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solidarité — Oulimata Laye Diop 💻</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --accent-wave: #1c8adb;
+      --accent-wave-hover: #146fa3;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --gradient-hero: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    }
+
+    /* Header & Profil */
+    .header { text-align: center; margin-bottom: 1.5rem; }
+    .avatar {
+      width: 75px;
+      height: 75px;
+      background: var(--gradient-hero);
+      border: 2px solid #bfdbfe;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1e40af;
+      margin: 0 auto 1rem;
+    }
+    .header h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.25rem; }
+    .header p { color: var(--text-secondary); font-size: 0.85rem; }
+
+    /* Description du problème */
+    .about-box {
+      background: #f1f5f9;
+      border-radius: 16px;
+      padding: 1.2rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #334155;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--accent-wave);
+    }
+    .about-box strong { color: var(--text-primary); }
+
+    /* Jauge de progression */
+    .progress-section { margin-bottom: 1.5rem; background: #fafafa; padding: 1rem; border-radius: 16px; border: 1px solid #f0f0f0; }
+    .metrics { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.5rem; }
+    .current-amount { font-size: 2rem; font-weight: 800; color: var(--accent-wave); }
+    .target-amount { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem; }
+    
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8 0%, #1c8adb 100%);
+      border-radius: 99px;
+      transition: width 0.8s ease;
+    }
+    .progress-sub { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); }
+
+    /* Formulaire simplifié */
+    .donation-box {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .box-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem; color: var(--accent-wave); }
+    .input-group { margin-bottom: 0.75rem; }
+    .form-input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--accent-wave); background: #fff; }
+
+    .wave-submit-btn {
+      width: 100%;
+      background: var(--accent-wave);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .wave-submit-btn:hover { background: var(--accent-wave-hover); }
+    .wave-submit-btn .w-icon {
+      background: white; color: var(--accent-wave);
+      width: 22px; height: 22px; border-radius: 5px;
+      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px;
+    }
+
+    /* Liste des donateurs */
+    .donors-section h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; justify-content: space-between; }
+    .donors-count-badge { background: #f1f5f9; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; color: var(--text-secondary); }
+    .donors-list { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; }
+    
+    .donor-card {
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .donor-info { display: flex; align-items: center; gap: 10px; }
+    .donor-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #e2e8f0; color: var(--text-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700;
+    }
+    .donor-meta .name { font-size: 0.85rem; font-weight: 600; }
+    .donor-meta .time { font-size: 0.7rem; color: var(--text-secondary); }
+    .donor-amount { font-size: 0.9rem; font-weight: 700; color: #16a34a; }
+
+    .empty-state { text-align: center; color: var(--text-secondary); font-size: 0.8rem; padding: 1rem 0; }
+
+    /* Actions */
+    .secondary-btn {
+      width: 100%; background: transparent; border: 1px solid var(--border-color);
+      color: var(--text-primary); padding: 0.75rem; border-radius: 12px;
+      font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-top: 1rem;
+    }
+    .secondary-btn:hover { background: #f8fafc; }
+
+    .info-footer { text-align: center; font-size: 0.75rem; color: var(--text-secondary); margin-top: 1.2rem; }
+
+    /* Toast */
+    .toast {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; color: white; padding: 0.7rem 1.3rem; border-radius: 10px;
+      font-size: 0.85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 999;
+    }
+    .toast.show { opacity: 1; }
+
+    /* Zone admin secrète */
+    .admin-trigger { display: block; width: 40px; height: 20px; margin: 1.5rem auto 0; background: transparent; border: none; cursor: pointer; color: #e2e8f0; font-size: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Profil Header -->
+    <div class="header">
+      <div class="avatar">OD</div>
+      <h1>Oulimata Laye Diop</h1>
+      <p>Solidarité Étudiante & Amitié</p>
+    </div>
+
+    <!-- Description claire du problème -->
+    <div class="about-box">
+      🚀 Notre amie <strong>Oulimata</strong> a de gros soucis avec son ordinateur, qui est son outil de travail principal. Les frais de réparation s'élèvent exactement à <strong>25 000 FCFA</strong>.<br><br>
+      Chaque geste compte pour l'aider à valider son année. Merci pour votre soutien ! 🙏
+    </div>
+
+    <!-- Section Jauge Claire -->
+    <div class="progress-section">
+      <div class="metrics">
+        <div>
+          <span class="current-amount" id="total-collected">0</span>
+          <span style="font-size: 1rem; font-weight: 700; color: var(--accent-wave);">FCFA</span>
+        </div>
+        <div class="target-amount">Objectif : 25 000 F</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="progress-sub">
+        <span id="pct-text">0% atteint</span>
+        <span id="restant-text">25 000 F restants</span>
+      </div>
+    </div>
+
+    <!-- Formulaire Sécurisé Épuré -->
+    <div class="donation-box">
+      <div class="box-title">Contribuer via Wave</div>
+      <div class="input-group">
+        <!-- Minimum 5, augmentation par pas de 5 -->
+        <input type="number" id="amount" class="form-input" placeholder="Montant à envoyer (FCFA)" min="5" step="5">
+      </div>
+      <button class="wave-submit-btn" onclick="redirectToWave()">
+        <div class="w-icon">W</div>
+        Ouvrir Wave & Payer
+      </button>
+    </div>
+
+    <!-- Liste des contributions VALIDÉES -->
+    <div class="donors-section">
+      <h3>Dépôts confirmés <span class="donors-count-badge" id="donor-count">0</span></h3>
+      <div class="donors-list" id="donors-container">
+        <div class="empty-state">Aucun dépôt validé pour le moment. 🙌</div>
+      </div>
+    </div>
+
+    <button class="secondary-btn" onclick="copyLink()">🔗 Partager le lien de la cagnotte</button>
+    
+    <div class="info-footer">
+      Paiement sécurisé via le lien marchand Wave géré par l'admin.<br>
+      Numéro associé : <strong>+221 77 667 95 25</strong>
+    </div>
+
+    <!-- Bouton secret de validation pour TOI -->
+    <button class="admin-trigger" onclick="adminAddContribution()">• admin</button>
+
+  </div>
+
+  <div class="toast" id="toast-notif"></div>
+
+  <script {nonce}>
+    const TARGET = 25000;
+    const LOCAL_KEY = 'cagnotte_oulimata_v5_final';
+    const WAVE_MERCHANT_URL = "https://pay.wave.com/m/M_sn_07_DCSrxbkAB/c/sn/"; 
+    const ADMIN_CODE = "1234";
+
+    function loadState() {
+      try {
+        const stored = localStorage.getItem(LOCAL_KEY);
+        return stored ? JSON.parse(stored) : { total: 0, list: [] };
+      } catch(e) { return { total: 0, list: [] }; }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(state));
+    }
+
+    function updateUI() {
+      const state = loadState();
+      const pct = Math.min(Math.round((state.total / TARGET) * 100), 100);
+      
+      document.getElementById('total-collected').textContent = state.total.toLocaleString('fr-FR');
+      document.getElementById('progress-bar').style.width = pct + '%';
+      document.getElementById('pct-text').textContent = `${pct}% atteint`;
+      document.getElementById('restant-text').textContent = `${Math.max(0, TARGET - state.total).toLocaleString('fr-FR')} F restants`;
+      document.getElementById('donor-count').textContent = state.list.length;
+
+      const container = document.getElementById('donors-container');
+      if (state.list.length === 0) {
+        container.innerHTML = '<div class="empty-state">Aucun dépôt validé pour le moment. 🙌</div>';
+        return;
+      }
+
+      container.innerHTML = [...state.list].reverse().map(item => `
+        <div class="donor-card">
+          <div class="donor-info">
+            <div class="donor-avatar">${item.name.substring(0,2).toUpperCase()}</div>
+            <div class="donor-meta">
+              <div class="name">${escapeHTML(item.name)}</div>
+              <div class="time">Validé ✅</div>
+            </div>
+          </div>
+          <div class="donor-amount">${Number(item.amount).toLocaleString('fr-FR')} FCFA</div>
+        </div>
+      `).join('');
+    }
+
+function redirectToWave() {
+      const amount = parseInt(document.getElementById('amount').value, 10);
+
+      if (!amount || amount < 5) { 
+        triggerToast('⚠️ Entre un montant valide (minimum 5 F)'); 
+        return; 
+      }
+
+      triggerToast('ℹ️ Redirection vers Wave...');
+      
+      // Redirection immédiate et directe sans délai ni pop-up bloqué !
+      window.location.href = WAVE_MERCHANT_URL;
+    }
+
+    function adminAddContribution() {
+      const code = prompt("Entrez le code secret Administrateur :");
+      if (code !== ADMIN_CODE) { alert("Code incorrect !"); return; }
+
+      const donorName = prompt("Prénom de la personne qui a payé :");
+      if (!donorName) return;
+      const donorAmount = parseInt(prompt("Montant exact reçu (FCFA) :"), 10);
+      if (!donorAmount || donorAmount <= 0) { alert("Montant invalide"); return; }
+
+      const state = loadState();
+      state.list.push({ name: donorName, amount: donorAmount, ts: Date.now() });
+      state.total += donorAmount;
+      saveState(state);
+      updateUI();
+      
+      triggerToast('✅ Dépôt validé avec succès !');
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        triggerToast('✅ Lien de la cagnotte copié !');
+      });
+    }
+
+    function triggerToast(msg) {
+      const toast = document.getElementById('toast-notif');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    updateUI();
+  </script>
+</body>
+</html>
