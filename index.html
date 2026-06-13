@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solidarité — Oulimata Laye Diop 💻</title>
+  <title>Solidarité — Cagnotte Étudiante 💻</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -40,7 +40,7 @@
       box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
     }
 
-    /* Header & Profil */
+    /* Header & Profil Anonyme */
     .header { text-align: center; margin-bottom: 1.5rem; }
     .avatar {
       width: 75px;
@@ -51,15 +51,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #1e40af;
+      font-size: 1.8rem;
       margin: 0 auto 1rem;
     }
     .header h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.25rem; }
     .header p { color: var(--text-secondary); font-size: 0.85rem; }
 
-    /* Description du problème */
+    /* Description anonyme du problème */
     .about-box {
       background: #f1f5f9;
       border-radius: 16px;
@@ -95,51 +93,40 @@
     }
     .progress-sub { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); }
 
-    /* Formulaire simplifié */
+    /* Bouton d'action */
     .donation-box {
       background: #fff;
       border: 1px solid var(--border-color);
       border-radius: 18px;
-      padding: 1.25rem;
+      padding: 0.5rem 0;
       margin-bottom: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
-    .box-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem; color: var(--accent-wave); }
-    .input-group { margin-bottom: 0.75rem; }
-    .form-input {
-      width: 100%;
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-    }
-    .form-input:focus { border-color: var(--accent-wave); background: #fff; }
 
     .wave-submit-btn {
       width: 100%;
       background: var(--accent-wave);
       color: white;
       border: none;
-      padding: 1rem;
-      border-radius: 12px;
+      padding: 1.1rem;
+      border-radius: 14px;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(28, 138, 219, 0.2);
+      transition: all 0.2s ease;
     }
-    .wave-submit-btn:hover { background: var(--accent-wave-hover); }
+    .wave-submit-btn:hover { background: var(--accent-wave-hover); transform: translateY(-1px); }
+    .wave-submit-btn:active { transform: translateY(1px); }
+    
     .wave-submit-btn .w-icon {
       background: white; color: var(--accent-wave);
-      width: 22px; height: 22px; border-radius: 5px;
-      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px;
+      width: 24px; height: 24px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px;
     }
 
     /* Liste des donateurs */
@@ -193,17 +180,17 @@
 
   <div class="app-container">
     
-    <!-- Profil Header -->
+    <!-- Profil Header Anonymisé -->
     <div class="header">
-      <div class="avatar">OD</div>
-      <h1>Oulimata Laye Diop</h1>
-      <p>Solidarité Étudiante & Amitié</p>
+      <div class="avatar">💻</div>
+      <h1>Cagnotte Solidaire</h1>
+      <p>Entraide Étudiante & Amitié</p>
     </div>
 
-    <!-- Description claire du problème -->
+    <!-- Description Claire sans prénom -->
     <div class="about-box">
-      🚀 Notre amie <strong>Oulimata</strong> a de gros soucis avec son ordinateur, qui est son outil de travail principal. Les frais de réparation s'élèvent exactement à <strong>25 000 FCFA</strong>.<br><br>
-      Chaque geste compte pour l'aider à valider son année. Merci pour votre soutien ! 🙏
+      🚀 Notre amie et camarade de classe a de gros soucis avec son ordinateur, qui est son outil d'étude principal. Les frais de réparation s'élèvent exactement à <strong>25 000 FCFA</strong>.<br><br>
+      Chaque geste, même petit, compte énormément pour l'aider à suivre ses cours et valider son année. Merci pour votre générosité ! 🙏
     </div>
 
     <!-- Section Jauge Claire -->
@@ -224,16 +211,11 @@
       </div>
     </div>
 
-    <!-- Formulaire Sécurisé Épuré -->
+    <!-- Bouton direct -->
     <div class="donation-box">
-      <div class="box-title">Contribuer via Wave</div>
-      <div class="input-group">
-        <!-- Minimum 5, augmentation par pas de 5 -->
-        <input type="number" id="amount" class="form-input" placeholder="Montant à envoyer (FCFA)" min="5" step="5">
-      </div>
       <button class="wave-submit-btn" onclick="redirectToWave()">
         <div class="w-icon">W</div>
-        Ouvrir Wave & Payer
+        Ouvrir Wave & Faire un dépôt
       </button>
     </div>
 
@@ -259,9 +241,9 @@
 
   <div class="toast" id="toast-notif"></div>
 
-  <script {nonce}>
+  <script>
     const TARGET = 25000;
-    const LOCAL_KEY = 'cagnotte_oulimata_v5_final';
+    const LOCAL_KEY = 'cagnotte_solidaire_v7_anon';
     const WAVE_MERCHANT_URL = "https://pay.wave.com/m/M_sn_07_DCSrxbkAB/c/sn/"; 
     const ADMIN_CODE = "1234";
 
@@ -306,17 +288,8 @@
       `).join('');
     }
 
-function redirectToWave() {
-      const amount = parseInt(document.getElementById('amount').value, 10);
-
-      if (!amount || amount < 5) { 
-        triggerToast('⚠️ Entre un montant valide (minimum 5 F)'); 
-        return; 
-      }
-
+    function redirectToWave() {
       triggerToast('ℹ️ Redirection vers Wave...');
-      
-      // Redirection immédiate et directe sans délai ni pop-up bloqué !
       window.location.href = WAVE_MERCHANT_URL;
     }
 
