@@ -129,31 +129,6 @@
       display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px;
     }
 
-    /* Liste des donateurs */
-    .donors-section h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; justify-content: space-between; }
-    .donors-count-badge { background: #f1f5f9; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; color: var(--text-secondary); }
-    .donors-list { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; }
-    
-    .donor-card {
-      background: #f8fafc;
-      border: 1px solid #edf2f7;
-      border-radius: 12px;
-      padding: 0.65rem 0.85rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .donor-info { display: flex; align-items: center; gap: 10px; }
-    .donor-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: #e2e8f0; color: var(--text-primary);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; font-weight: 700;
-    }
-    .donor-meta .name { font-size: 0.85rem; font-weight: 600; }
-    .donor-meta .time { font-size: 0.7rem; color: var(--text-secondary); }
-    .donor-amount { font-size: 0.9rem; font-weight: 700; color: #16a34a; }
-
-    .empty-state { text-align: center; color: var(--text-secondary); font-size: 0.8rem; padding: 1rem 0; }
-
     /* Actions */
     .secondary-btn {
       width: 100%; background: transparent; border: 1px solid var(--border-color);
@@ -216,14 +191,6 @@
       </button>
     </div>
 
-    <!-- Liste des contributions VALIDÉES -->
-    <div class="donors-section">
-      <h3>Dépôts confirmés <span class="donors-count-badge" id="donor-count">0</span></h3>
-      <div class="donors-list" id="donors-container">
-        <div class="empty-state">Aucun dépôt validé pour le moment. 🙌</div>
-      </div>
-    </div>
-
     <button class="secondary-btn" onclick="copyLink()">🔗 Partager le lien de la cagnotte</button>
     
     <div class="info-footer">
@@ -239,25 +206,15 @@
     const TARGET = 25000;
     const WAVE_MERCHANT_URL = "https://pay.wave.com/m/M_sn_07_DCSrxbkAB/c/sn/"; 
 
-    // C'EST UNIQUEMENT ICI QUE TU TRAVAILLES QUAND TU REÇOIS UN DON :
+    // C'EST UNIQUEMENT ICI QUE TU AJOUTES LES MONTANTS :
+    // Tu as juste à ajouter une virgule et le montant reçu. Exemple : [48, 10, 1000, 500]
     function loadState() {
-      const list = [
-{ name: "Mouhamadou M G", amount: 48 },
-{ name: "Anta MBOUP", amount: 10 },
-{ name: "Mariama Gata BA", amount: 1000 },
-{ name: "Ramatoulaye SECK", amount: 48 },
-{ name: "Anonyme", amount: 900 },
-{ name: "Oulimata Ndoye DIOP", amount: 700 },
-{ name: "Mouhamed FALL", amount: 50 },
-        { name: "Awa DIAKHAME", amount: 20 },
-        { name: "Mouhamadou GUEYE", amount: 50 }
-        // Ajoute les prochains en dessous en respectant le format !
-      ];
+      const montantsRecus = [48, 10, 1000, 48, 900, 700, 50, 20, 50];
 
       // Calcul automatique de la somme totale
-      const total = list.reduce((somme, donateur) => somme + donateur.amount, 0);
+      const total = montantsRecus.reduce((somme, montant) => somme + montant, 0);
 
-      return { total, list };
+      return { total };
     }
 
     function updateUI() {
@@ -268,26 +225,6 @@
       document.getElementById('progress-bar').style.width = pct + '%';
       document.getElementById('pct-text').textContent = `${pct}% atteint`;
       document.getElementById('restant-text').textContent = `${Math.max(0, TARGET - state.total).toLocaleString('fr-FR')} F restants`;
-      document.getElementById('donor-count').textContent = state.list.length;
-
-      const container = document.getElementById('donors-container');
-      if (state.list.length === 0) {
-        container.innerHTML = '<div class="empty-state">Aucun dépôt validé pour le moment. 🙌</div>';
-        return;
-      }
-
-      container.innerHTML = [...state.list].reverse().map(item => `
-        <div class="donor-card">
-          <div class="donor-info">
-            <div class="donor-avatar">${item.name.substring(0,2).toUpperCase()}</div>
-            <div class="donor-meta">
-              <div class="name">${escapeHTML(item.name)}</div>
-              <div class="time">Validé ✅</div>
-            </div>
-          </div>
-          <div class="donor-amount">${Number(item.amount).toLocaleString('fr-FR')} FCFA</div>
-        </div>
-      `).join('');
     }
 
     function redirectToWave() {
@@ -306,10 +243,6 @@
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3500);
-    }
-
-    function escapeHTML(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
     updateUI();
